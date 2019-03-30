@@ -10,4 +10,5 @@ $router = require __DIR__ . '/../routes/routes.php';
 $app = new Application($router);
 
 $request = new Request;
-$app->handRequest($request);
+
+echo $app->handRequest($request);
