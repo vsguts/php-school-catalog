@@ -6,13 +6,13 @@ class FormController
 {
     public function index($params = [])
     {
-        echo 'Controller Index';
+        return 'Controller Index';
     }
 
     public function view($params = [])
     {
-        echo 'Controller View';
-
         p($params);
+        return 'Controller View';
+
     }
 }
