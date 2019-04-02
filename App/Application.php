@@ -18,10 +18,10 @@ class Application
         $this->router = $router;
     }
 
-    public function handRequest(RequestInterface $request)
+    public function handleRequest(RequestInterface $request)
     {
         $route = $this->router->resolve($request);
-        $this->runControllerAction($route, $request);
+        return $this->runControllerAction($route, $request);
     }
 
     protected function runControllerAction(RouteInterface $route, RequestInterface $request)
@@ -32,6 +32,6 @@ class Application
 
         $controller = new $class;
 
-        $controller->$action($params);
+        return $controller->$action($params);
     }
 }
