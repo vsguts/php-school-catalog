@@ -11,4 +11,4 @@ $app = new Application($router);
 
 $request = new Request;
 
-echo $app->handRequest($request);
+$app->handleRequest($request);
