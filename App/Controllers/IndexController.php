@@ -6,6 +6,6 @@ class IndexController
 {
     public function index()
     {
-        echo 'I am action index';
+        return 'I am action index';
     }
 }
