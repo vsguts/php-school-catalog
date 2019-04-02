@@ -24,7 +24,7 @@ class Application
         $controller = $this->resolveControllerClass($route);
         $action = $this->resolveControllerAction($route, $controller);
 
-        $this->runControllerAction($controller, $action, $request);
+        return $this->runControllerAction($controller, $action, $request);
     }
 
     protected function resolveControllerClass(RouteInterface $route)
@@ -53,6 +53,6 @@ class Application
     {
         $params = $request->getQueryParams();
 
-        $controller->$action($params);
+         return $controller->$action($params);
     }
 }

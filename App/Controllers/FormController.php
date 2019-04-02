@@ -18,8 +18,9 @@ class FormController
 
     public function view($params = [])
     {
-        echo 'Controller View';
-
-        p($params);
+        if ($params) {
+            p($params);
+        }
+        return 'Controller View';
     }
 }
