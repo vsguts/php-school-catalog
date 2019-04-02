@@ -2,24 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Views\TemplateView;
-
 class FormController
 {
     public function index($params = [])
     {
-        // ...
-
-        return new TemplateView('view_name', [
-            'title' => 'My awesome page',
-            'forms' => [],// ...
-        ]);
+        return 'Controller Index';
     }
 
     public function view($params = [])
     {
-        echo 'Controller View';
-
-        p($params);
+        return 'Controller View';
     }
 }
