@@ -8,6 +8,7 @@ class FormController
 {
     public function index($params = [])
     {
+
         // ...
 
         return new TemplateView('view_name', [
@@ -18,8 +19,9 @@ class FormController
 
     public function view($params = [])
     {
-        echo 'Controller View';
-
         p($params);
+
+        return 'Controller View';
+
     }
 }
