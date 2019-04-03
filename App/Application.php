@@ -5,6 +5,7 @@ namespace App;
 use App\Http\RequestInterface;
 use App\Http\RouteInterface;
 use App\Http\RouterInterface;
+use App\Views\ViewInterface;
 
 class Application
 {
@@ -24,7 +25,8 @@ class Application
         $controller = $this->resolveControllerClass($route);
         $action = $this->resolveControllerAction($route, $controller);
 
-        $this->runControllerAction($controller, $action, $request);
+        $result = $this->runControllerAction($controller, $action, $request);
+        $this->render($result);
     }
 
     protected function resolveControllerClass(RouteInterface $route)
@@ -53,6 +55,17 @@ class Application
     {
         $params = $request->getQueryParams();
 
-        $controller->$action($params);
+        return $controller->$action($params);
+    }
+
+    protected function render($result)
+    {
+        if ($result instanceof ViewInterface) {
+            $result->render();
+        } elseif (is_string($result)) {
+            echo $result;
+        } else {
+            throw new \Exception('Unsuported type');
+        }
     }
 }
