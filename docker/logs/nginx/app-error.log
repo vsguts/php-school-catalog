@@ -1,6 +1,0 @@
-2019/03/27 16:48:47 [error] 6#6: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.20.0.4:9000", host: "localhost:8000"
-2019/03/27 16:57:55 [error] 6#6: *5 directory index of "/app/public/" is forbidden, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:8000"
-2019/03/27 16:57:56 [error] 6#6: *5 directory index of "/app/public/" is forbidden, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:8000"
-2019/03/27 16:57:56 [error] 6#6: *5 directory index of "/app/public/" is forbidden, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:8000"
-2019/03/27 16:57:56 [error] 6#6: *5 directory index of "/app/public/" is forbidden, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:8000"
-2019/03/27 16:57:56 [error] 6#6: *5 directory index of "/app/public/" is forbidden, client: 172.20.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:8000"
