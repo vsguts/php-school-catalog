@@ -18,19 +18,40 @@ class Application
         $this->router = $router;
     }
 
-    public function handRequest(RequestInterface $request)
+    public function handleRequest(RequestInterface $request)
     {
         $route = $this->router->resolve($request);
-        $this->runControllerAction($route, $request);
+        $controller = $this->resolveControllerClass($route);
+        $action = $this->resolveControllerAction($route, $controller);
+
+        $this->runControllerAction($controller, $action, $request);
     }
 
-    protected function runControllerAction(RouteInterface $route, RequestInterface $request)
+    protected function resolveControllerClass(RouteInterface $route)
     {
-        $params = $request->getQueryParams();
         $class = $route->getClass();
+
+        if (!class_exists($class)) {
+            throw new \Exception('Controller class does not exists');
+        }
+
+        return new $class;
+    }
+
+    protected function resolveControllerAction(RouteInterface $route, $controller)
+    {
         $action = $route->getAction();
 
-        $controller = new $class;
+        if (!method_exists($controller, $action)) {
+            throw new \Exception('Action does not exists');
+        }
+
+        return $action;
+    }
+
+    protected function runControllerAction($controller, $action, RequestInterface $request)
+    {
+        $params = $request->getQueryParams();
 
         $controller->$action($params);
     }
