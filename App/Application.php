@@ -54,8 +54,9 @@ class Application
     protected function runControllerAction($controller, $action, RequestInterface $request)
     {
         $params = $request->getQueryParams();
+        $postData = $request->getPostData();
 
-        return $controller->$action($params);
+        return $controller->$action($params, $postData);
     }
 
     protected function render($result)
