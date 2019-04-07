@@ -151,3 +151,11 @@
 [02-Apr-2019 22:15:13] WARNING: [pool www] child 62 said into stderr: "#1 /app/public/index.php(13): App\Application->handleRequest(Object(App\Http\Request))"
 [02-Apr-2019 22:15:13] WARNING: [pool www] child 62 said into stderr: "#2 {main}"
 [02-Apr-2019 22:15:13] WARNING: [pool www] child 62 said into stderr: "  thrown in /app/App/Http/Router.php on line 22"
+[07-Apr-2019 12:52:34] NOTICE: fpm is running, pid 59
+[07-Apr-2019 12:52:34] NOTICE: ready to handle connections
+[07-Apr-2019 12:52:34] NOTICE: systemd monitor interval set to 10000ms
+[07-Apr-2019 12:52:41] WARNING: [pool www] child 61 said into stderr: "[07-Apr-2019 12:52:41 UTC] PHP Fatal error:  Uncaught Error: Call to a member function render() on null in /app/App/Application.php:28"
+[07-Apr-2019 12:52:41] WARNING: [pool www] child 61 said into stderr: "Stack trace:"
+[07-Apr-2019 12:52:41] WARNING: [pool www] child 61 said into stderr: "#0 /app/public/index.php(13): App\Application->handleRequest(Object(App\Http\Request))"
+[07-Apr-2019 12:52:41] WARNING: [pool www] child 61 said into stderr: "#1 {main}"
+[07-Apr-2019 12:52:41] WARNING: [pool www] child 61 said into stderr: "  thrown in /app/App/Application.php on line 28"

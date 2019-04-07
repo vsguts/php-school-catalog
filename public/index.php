@@ -10,4 +10,4 @@ $router = require __DIR__ . '/../routes/routes.php';
 $app = new Application($router);
 
 $request = new Request;
-echo $app->handleRequest($request);
+$app->handleRequest($request);

@@ -21,16 +21,38 @@ class Application
     public function handleRequest(RequestInterface $request)
     {
         $route = $this->router->resolve($request);
-        return $this->runControllerAction($route, $request);
+        $controller = $this->resolveControllerClass($route);
+        $action = $this->resolveControllerAction($route, $controller);
+
+        $result = $this->runControllerAction($controller, $action, $request);
+        $result->render();
     }
 
-    protected function runControllerAction(RouteInterface $route, RequestInterface $request)
+    protected function resolveControllerClass(RouteInterface $route)
     {
-        $params = $request->getQueryParams();
         $class = $route->getClass();
+
+        if (!class_exists($class)) {
+            throw new \Exception('Controller class does not exists');
+        }
+
+        return new $class;
+    }
+
+    protected function resolveControllerAction(RouteInterface $route, $controller)
+    {
         $action = $route->getAction();
 
-        $controller = new $class;
+        if (!method_exists($controller, $action)) {
+            throw new \Exception('Action does not exists');
+        }
+
+        return $action;
+    }
+
+    protected function runControllerAction($controller, $action, RequestInterface $request)
+    {
+        $params = $request->getQueryParams();
 
         return $controller->$action($params);
     }
