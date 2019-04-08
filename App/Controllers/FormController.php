@@ -8,6 +8,10 @@ use App\Views\TemplateView;
 
 class FormController
 {
+    /**
+     * @param array $params
+     * @return TemplateView
+     */
     public function index($params = [])
     {
         $query = new Query;
@@ -19,7 +23,11 @@ class FormController
         ]);
     }
 
-    public function view($params = [])
+    /**
+     * @param array $params
+     * @return TemplateView
+     */
+    public function view($params = []): TemplateView
     {
         $query = new Query();
         $form = $query->getRow(
@@ -32,7 +40,44 @@ class FormController
         ]);
     }
 
-    public function create($params, $post)
+    /**
+     * @param array $params
+     * @return TemplateView
+     */
+    public function update($params = []): TemplateView
+    {
+        $query = new Query();
+        $form = $query->getRow(
+            "SELECT * FROM forms WHERE id = ?",
+            [$params['id']]
+        );
+
+        return new TemplateView('form_update', [
+            'form' => $form
+        ]);
+    }
+
+    /**
+     * @param array $post
+     * @return RedirectView
+     */
+    public function save(array $post): RedirectView
+    {
+        var_dump($post);
+        $query = new Query();
+        $query->execute(
+            "UPDATE forms SET title = :title, content = :content WHERE id = :id",
+            $post['form']
+        );
+
+        return new RedirectView('/forms/view?id=' . $post['form']['id']);
+    }
+
+    /**
+     * @param array $post
+     * @return RedirectView
+     */
+    public function create(array $post): RedirectView
     {
         $query = new Query();
         // $query->execute(
@@ -50,7 +95,11 @@ class FormController
         return new RedirectView('/forms/view?id=' . $id);
     }
 
-    public function delete($params)
+    /**
+     * @param array $params
+     * @return RedirectView
+     */
+    public function delete(array $params): RedirectView
     {
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');
