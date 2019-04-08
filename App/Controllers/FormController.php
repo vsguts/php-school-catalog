@@ -8,11 +8,9 @@ class FormController
 {
     public function index($params = [])
     {
-        // ...
-
         return new TemplateView('view_name', [
             'title' => 'My awesome page',
-            'forms' => [],// ...
+            'forms' => ['asd' => 'sda', 'qwe' => 'ewq', 'zxc' => 'cxz'],
         ]);
     }
 
