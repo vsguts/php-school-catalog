@@ -55,4 +55,30 @@ class FormController
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');
     }
+
+    public function update($params, $post)
+    {
+        $query = new Query();
+
+        $query->execute(
+            "UPDATE forms SET title = ?, content = ? WHERE id = ?",
+            [$post['form']['title'], $post['form']['content'], $post['id']]
+        );
+
+        return new RedirectView('/forms/view?id=' . $post['id']);
+    }
+
+    public function viewUpdate($params = [])
+    {
+        $query = new Query();
+        $form = $query->getRow(
+            "SELECT * FROM forms WHERE id = ?",
+            [$params['id']]
+        );
+
+        return new TemplateView('form_update', [
+            'form' => $form
+        ]);
+
+    }
 }
