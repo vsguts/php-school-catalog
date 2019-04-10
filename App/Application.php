@@ -34,7 +34,10 @@ class Application
         $class = $route->getClass();
 
         if (!class_exists($class)) {
+            new Logger(LogLevel::ERROR, 'Controller class does not exists', (array)$route);
             throw new \Exception('Controller class does not exists');
+        } else {
+            new Logger(LogLevel::INFO, 'Controller class exists', (array)$route);
         }
 
         return new $class;
@@ -45,6 +48,9 @@ class Application
         $action = $route->getAction();
 
         if (!method_exists($controller, $action)) {
+            $route = (array)$route;
+            $route ['controller'] = $controller;
+            new Logger(LogLevel::ERROR, 'Action does not exists', $route);
             throw new \Exception('Action does not exists');
         }
 
@@ -66,6 +72,7 @@ class Application
         } elseif (is_string($result)) {
             echo $result;
         } else {
+            new Logger(LogLevel::ERROR, 'Unsuported type for render in Application', (array)$result);
             throw new \Exception('Unsuported type');
         }
     }
