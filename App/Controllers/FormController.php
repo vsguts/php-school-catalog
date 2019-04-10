@@ -3,11 +3,13 @@
 namespace App\Controllers;
 
 use App\Database\Query;
+use App\Logger;
 use App\Views\RedirectView;
 use App\Views\TemplateView;
 
 class FormController
 {
+
     public function index($params = [])
     {
         $query = new Query;
@@ -26,6 +28,10 @@ class FormController
             "SELECT * FROM forms WHERE id = ?",
             [$params['id']]
         );
+
+        if(empty($form)) {
+            (new Logger())->log(sprintf('File not found. Id: %s', $params['id']), 'ERROR');
+        }
 
         return new TemplateView('form_view', [
             'form' => $form
@@ -54,5 +60,11 @@ class FormController
     {
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');
+    }
+
+    public function update($params, $post)
+    {
+        (new Query)->execute("UPDATE forms SET title = ?, content = ? WHERE id = ?", [$params['id'], $post['form']]);
+        return new RedirectView('/forms/view?id=' . $id);
     }
 }
