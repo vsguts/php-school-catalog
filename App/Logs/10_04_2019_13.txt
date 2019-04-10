@@ -1,0 +1,10 @@
+[10.04.2019 13:32:00] Level: 'error'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:34] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:36:37] Level: 'INFO'. Message: 'my message' Context: {"asd":"dsa","qwe":"ewq"}[10.04.2019 13:37:18] Level: 'INFO'. Message: 'my message'
+ Context: {"asd":"dsa","qwe":"ewq"}
+[10.04.2019 13:37:18] Level: 'INFO'. Message: 'my message'
+ Context: {"asd":"dsa","qwe":"ewq"}
+[10.04.2019 13:37:18] Level: 'INFO'. Message: 'my message'
+ Context: {"asd":"dsa","qwe":"ewq"}
+[10.04.2019 13:37:18] Level: 'INFO'. Message: 'my message'
+ Context: {"asd":"dsa","qwe":"ewq"}
+[10.04.2019 13:37:19] Level: 'INFO'. Message: 'my message'
+ Context: {"asd":"dsa","qwe":"ewq"}

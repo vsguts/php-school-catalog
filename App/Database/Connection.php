@@ -2,6 +2,8 @@
 
 namespace App\Database;
 
+use App\Logger;
+use App\LogLevel;
 use PDO;
 use PDOException;
 
@@ -25,6 +27,10 @@ class Connection
         try {
             $this->db = new PDO($dsn, $user, $password);
         } catch (PDOException $e) {
+            $info['dsn'] = $dsn;
+            $info['user'] = $user;
+            $info['$password'] = $password;
+            new Logger(LogLevel::ERROR, 'Cannot connect to database', $info);
             echo 'Connect does not work: ' . $e->getMessage();
         };
     }
