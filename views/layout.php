@@ -10,7 +10,7 @@
 <?= $content ?>
 
 
-<br/>
+<br />
 <h5>Footer</h5>
 
 </body>
