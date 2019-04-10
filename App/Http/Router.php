@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Logger\Logger;
+
 class Router implements RouterInterface
 {
     protected $routes = [];
@@ -13,15 +15,20 @@ class Router implements RouterInterface
         $this->routes[$method][$path] = new Route($controller, $action);
     }
 
-    public function resolve(RequestInterface $request) : RouteInterface
+    public function resolve(RequestInterface $request): RouteInterface
     {
-        $method = $request->getMethod();
-        $path = $request->getPath();
+        try {
+            $method = $request->getMethod();
+            $path = $request->getPath();
 
-        if (!isset($this->routes[$method][$path])) {
-            throw new \Exception('Route not found');
+            if (!isset($this->routes[$method][$path])) {
+                throw new \Exception('Route not found');
+            }
+
+            return $this->routes[$method][$path];
+        } catch (\Exception $e) {
+            $log = new Logger();
+            $log->log($e->getMessage());
         }
-
-        return $this->routes[$method][$path];
     }
 }
