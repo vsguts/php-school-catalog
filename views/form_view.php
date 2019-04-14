@@ -1,4 +1,3 @@
-
 <div>
     <h1><?= $form['title'] ?></h1>
     <p><?= $form['content'] ?></p>
