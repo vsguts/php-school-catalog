@@ -40,7 +40,8 @@ class FileLogger implements LoggerInterface
         }
 
         $filename = $this->path . date('d_m_Y_H') . '.txt';
-        $msg = sprintf(
+        $msg =
+            sprintf(
                 "[%s] Level: '%s'. Message: '%s'",
                 date('d.m.Y H:i:s'),
                 $level,

@@ -38,7 +38,7 @@ class FormController extends BaseController
         } elseif (empty($form)) {
             $this->getLogger()->log(LogLevel::ERROR, 'post wasn\'t fined', $params);
         } elseif (empty($params['id'])) {
-           $this->getLogger()->log(LogLevel::ERROR, 'missing post-id', $params);
+            $this->getLogger()->log(LogLevel::ERROR, 'missing post-id', $params);
         }
 
         return new TemplateView('form_view', [
@@ -55,9 +55,9 @@ class FormController extends BaseController
         // );
 
         if (empty($post)) {
-           $this->getLogger()->log(LogLevel::ERROR, 'missing info for creating post');
+            $this->getLogger()->log(LogLevel::ERROR, 'missing info for creating post');
         } else {
-           $this->getLogger()->log(LogLevel::INFO, 'created new post', $post);
+            $this->getLogger()->log(LogLevel::INFO, 'created new post', $post);
         }
 
         $query->execute(
@@ -73,7 +73,7 @@ class FormController extends BaseController
     public function delete($params)
     {
         if (empty($params)) {
-           $this->getLogger()->log(LogLevel::ERROR, 'missing params for deleting');
+            $this->getLogger()->log(LogLevel::ERROR, 'missing params for deleting');
         }
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');

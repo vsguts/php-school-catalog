@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Test;
+
 use App\Logger\FileLogger;
 use App\Logger\LoggerInterface;
 use App\Logger\LogLevel;
@@ -42,8 +44,12 @@ class FileLoggerTest extends TestCase
         $this->logger->log($lvl, $msg);
         $this->assertFileExists($filename);
         $log = file_get_contents($filename);
-        $this->assertEquals('[' . date('d.m.Y H:i:s') . '] Level: \'' . $lvl . '\'. Message: \'' . $msg . '\'' . PHP_EOL,
-            $log);
+        $this->assertEquals(
+            '[' . date('d.m.Y H:i:s') .
+            '] Level: \'' . $lvl . '\'. Message: \'' .
+            $msg . '\'' . PHP_EOL,
+            $log
+        );
     }
 
     public function provider()

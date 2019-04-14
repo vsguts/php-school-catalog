@@ -33,5 +33,3 @@ class Logger implements LoggerInterface
         $this->logger->log($level, $message, $context);
     }
 }
-
-

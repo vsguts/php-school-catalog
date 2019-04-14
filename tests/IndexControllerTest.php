@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Test;
+
 use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 
