@@ -3,8 +3,10 @@
 namespace App\Database;
 
 use App\Config;
-use App\Logger;
-use App\LogLevel;
+use App\Logger\FileLogger;
+use App\Logger\Logger;
+use App\Logger\LoggerInterface;
+use App\Logger\LogLevel;
 use PDO;
 
 class Query
@@ -14,13 +16,18 @@ class Query
      */
     protected $db;
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     public function __construct(Connection $connection = null)
     {
         // FIXME
         if (!isset($connection)) {
             $connection = new Connection(Config::get('db'));
         }
-
+        $this->logger = new Logger(new FileLogger());
         $this->db = $connection->getConnection();
     }
 
@@ -28,10 +35,10 @@ class Query
     {
         $query = $this->db->prepare($query);
         if ($query->execute($params) === true) {
-            new Logger(LogLevel::INFO, 'Successful query(getRow)', (array)$query);
+            $this->logger->log(LogLevel::INFO, 'Successful query(getRow)', (array)$query);
         } else {
             $params[] = $query;
-            new Logger(LogLevel::ERROR, 'Incorrect query(getRow) or params', $params);
+            $this->logger->log(LogLevel::ERROR, 'Incorrect query(getRow) or params', $params);
         }
         $query->execute($params);
         return $query->fetch(PDO::FETCH_ASSOC);
@@ -41,10 +48,10 @@ class Query
     {
         $query = $this->db->prepare($query);
         if ($query->execute($params) === true) {
-            new Logger(LogLevel::INFO, 'Successful query(getList)', (array)$query);
+            $this->logger->log(LogLevel::INFO, 'Successful query(getList)', (array)$query);
         } else {
             $params[] = $query;
-            new Logger(LogLevel::ERROR, 'Incorrect query(getList) or params', $params);
+            $this->logger->log(LogLevel::ERROR, 'Incorrect query(getList) or params', $params);
         }
         $query->execute($params);
         return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -54,10 +61,10 @@ class Query
     {
         $query = $this->db->prepare($query);
         if ($query->execute($params) === true) {
-            new Logger(LogLevel::INFO, 'Successful query(execute)', (array)$query);
+            $this->logger->log(LogLevel::INFO, 'Successful query(execute)', (array)$query);
         } else {
             $params[] = $query;
-            new Logger(LogLevel::ERROR, 'Incorrect query(execute) or params', $params);
+            $this->logger->log(LogLevel::ERROR, 'Incorrect query(execute) or params', $params);
         }
         $query->execute($params);
     }

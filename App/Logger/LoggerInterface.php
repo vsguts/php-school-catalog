@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\Logger;
 
+/**
+ * Interface LoggerInterface
+ * @package App\Logger
+ */
 interface LoggerInterface
 {
     /**

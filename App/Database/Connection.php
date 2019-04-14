@@ -2,8 +2,10 @@
 
 namespace App\Database;
 
-use App\Logger;
-use App\LogLevel;
+use App\Logger\FileLogger;
+use App\Logger\Logger;
+use App\Logger\LoggerInterface;
+use App\Logger\LogLevel;
 use PDO;
 use PDOException;
 
@@ -13,6 +15,10 @@ class Connection
      * @var PDO
      */
     protected $db;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function __construct($config)
     {
@@ -20,9 +26,9 @@ class Connection
         $host = $config['host'];
         $port = $config['port'];
         $dsn = "mysql:dbname=$dbName;host=$host;port=$port";
-
         $user = $config['username'];
         $password = $config['password'];
+        $this->logger = new Logger(new FileLogger());
 
         try {
             $this->db = new PDO($dsn, $user, $password);
@@ -30,7 +36,7 @@ class Connection
             $info['dsn'] = $dsn;
             $info['user'] = $user;
             $info['$password'] = $password;
-            new Logger(LogLevel::ERROR, 'Cannot connect to database', $info);
+            $this->logger->log(LogLevel::ERROR, 'Cannot connect to database', $info);
             echo 'Connect does not work: ' . $e->getMessage();
         };
     }

@@ -5,6 +5,10 @@ namespace App;
 use App\Http\RequestInterface;
 use App\Http\RouteInterface;
 use App\Http\RouterInterface;
+use App\Logger\FileLogger;
+use App\Logger\Logger;
+use App\Logger\LoggerInterface;
+use App\Logger\LogLevel;
 use App\Views\ViewInterface;
 
 class Application
@@ -13,10 +17,15 @@ class Application
      * @var RouterInterface
      */
     protected $router;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
+        $this->logger = new Logger(new FileLogger());
     }
 
     public function handleRequest(RequestInterface $request)
@@ -34,10 +43,10 @@ class Application
         $class = $route->getClass();
 
         if (!class_exists($class)) {
-            new Logger(LogLevel::ERROR, 'Controller class does not exists', (array)$route);
+            $this->logger->log(LogLevel::ERROR, 'Controller class does not exists', (array)$route);
             throw new \Exception('Controller class does not exists');
         } else {
-            new Logger(LogLevel::INFO, 'Controller class exists', (array)$route);
+            $this->logger->log(LogLevel::INFO, 'Controller class exists', (array)$route);
         }
 
         return new $class;
@@ -50,7 +59,7 @@ class Application
         if (!method_exists($controller, $action)) {
             $route = (array)$route;
             $route ['controller'] = $controller;
-            new Logger(LogLevel::ERROR, 'Action does not exists', $route);
+            $this->logger->log(LogLevel::ERROR, 'Action does not exists', $route);
             throw new \Exception('Action does not exists');
         }
 
@@ -72,7 +81,7 @@ class Application
         } elseif (is_string($result)) {
             echo $result;
         } else {
-            new Logger(LogLevel::ERROR, 'Unsuported type for render in Application', (array)$result);
+            $this->logger->log(LogLevel::ERROR, 'Unsuported type for render in Application', (array)$result);
             throw new \Exception('Unsuported type');
         }
     }
