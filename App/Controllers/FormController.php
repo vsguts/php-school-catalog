@@ -9,11 +9,17 @@ use App\Views\TemplateView;
 
 class FormController
 {
+    /** @var Query */
+    private $query;
+
+    public function __construct()
+    {
+        $this->query = new Query();
+    }
 
     public function index($params = [])
     {
-        $query = new Query;
-        $forms = $query->getList("SELECT * FROM forms");
+        $forms = $this->query->getList("SELECT * FROM forms");
 
         return new TemplateView('form_index', [
             'title' => 'My awesome page',
@@ -23,8 +29,7 @@ class FormController
 
     public function view($params = [])
     {
-        $query = new Query();
-        $form = $query->getRow(
+        $form = $this->query->getRow(
             "SELECT * FROM forms WHERE id = ?",
             [$params['id']]
         );
@@ -40,31 +45,33 @@ class FormController
 
     public function create($params, $post)
     {
-        $query = new Query();
-        // $query->execute(
-        //     "INSERT INTO forms (title, content) VALUES (?, ?)",
-        //     [$post['form']['title'], $post['form']['content']]
-        // );
+        $queryStr = "INSERT INTO forms (title, content) VALUES (:title, :content)";
+        if ($post['form']['id']) {
+            $queryStr = "UPDATE `forms` SET `title` = :title, `content` = :content WHERE `id` = :id";
+        }
 
-        $query->execute(
-            "INSERT INTO forms (title, content) VALUES (:title, :content)",
-            $post['form']
-        );
+        $this->query->execute($queryStr, $post['form']);
 
-        $id = $query->getLastInsertId();
+        $id = $post['form']['id'] ? $post['form']['id'] : $this->query->getLastInsertId();
 
         return new RedirectView('/forms/view?id=' . $id);
     }
 
     public function delete($params)
     {
-        (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
+        $this->query->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
+
         return new RedirectView('/forms');
     }
 
-    public function update($params, $post)
+    public function update($params)
     {
-        (new Query)->execute("UPDATE forms SET title = ?, content = ? WHERE id = ?", [$params['id'], $post['form']]);
-        return new RedirectView('/forms/view?id=' . $id);
+        $data = $this->query->getRow('SELECT title, content FROM forms WHERE id = ?', [$params['id']]);
+        $data['button_title'] = 'Update';
+        $data['id'] = $params['id'];
+
+        return new TemplateView('form', [
+            'data' => $data
+        ]);
     }
 }
