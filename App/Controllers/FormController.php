@@ -14,10 +14,14 @@ use App\Views\TemplateView;
  */
 class FormController extends BaseController
 {
+    /**
+     * @param array $params
+     * @return TemplateView
+     */
     public function index($params = [])
     {
         $query = new Query();
-        $forms = $query->getList("SELECT * FROM forms");
+        $forms = $query->getList('SELECT * FROM forms');
 
         return new TemplateView('form_index', [
             'title' => 'My awesome page',
@@ -25,11 +29,15 @@ class FormController extends BaseController
         ]);
     }
 
+    /**
+     * @param array $params
+     * @return TemplateView
+     */
     public function view($params = [])
     {
         $query = new Query();
         $form = $query->getRow(
-            "SELECT * FROM forms WHERE id = ?",
+            'SELECT * FROM forms WHERE id = ?',
             [$params['id']]
         );
 
@@ -46,6 +54,11 @@ class FormController extends BaseController
         ]);
     }
 
+    /**
+     * @param $params
+     * @param $post
+     * @return RedirectView
+     */
     public function create($params, $post)
     {
         $query = new Query();
@@ -61,7 +74,7 @@ class FormController extends BaseController
         }
 
         $query->execute(
-            "INSERT INTO forms (title, content) VALUES (:title, :content)",
+            'INSERT INTO forms (title, content) VALUES (:title, :content)',
             $post['form']
         );
 
@@ -70,12 +83,16 @@ class FormController extends BaseController
         return new RedirectView('/forms/view?id=' . $id);
     }
 
+    /**
+     * @param $params
+     * @return RedirectView
+     */
     public function delete($params)
     {
         if (empty($params)) {
             $this->getLogger()->log(LogLevel::ERROR, 'missing params for deleting');
         }
-        (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
+        (new Query)->execute('DELETE FROM forms WHERE id = ?', [$params['id']]);
         return new RedirectView('/forms');
     }
 }

@@ -15,6 +15,10 @@ class Logger implements LoggerInterface
      */
     private $logger;
 
+    /**
+     * Logger constructor.
+     * @param LoggerInterface $logger
+     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;

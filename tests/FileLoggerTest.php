@@ -8,12 +8,18 @@ use App\Logger\LoggerInterface;
 use App\Logger\LogLevel;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class FileLoggerTest
+ *
+ * @package Test
+ */
 class FileLoggerTest extends TestCase
 {
     /**
      * @var LoggerInterface
      */
     private $logger;
+
     /**
      * @var string
      */
@@ -28,6 +34,9 @@ class FileLoggerTest extends TestCase
         $this->logger = new FileLogger($this->path);
     }
 
+    /**
+     * @return void
+     */
     public function tearDown(): void
     {
         exec(sprintf("rm -rf %s", escapeshellarg($this->path)));
@@ -52,12 +61,15 @@ class FileLoggerTest extends TestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function provider()
     {
-        return array(
-            array(LogLevel::INFO, 'info message'),
-            array(LogLevel::ERROR, 'error message'),
-            array(LogLevel::DEBUG, 'debug message'),
-        );
+        return [
+            [LogLevel::INFO, 'info message'],
+            [LogLevel::ERROR, 'error message'],
+            [LogLevel::DEBUG, 'debug message'],
+        ];
     }
 }
