@@ -33,10 +33,15 @@ class Connection
         try {
             $this->db = new PDO($dsn, $user, $password);
         } catch (PDOException $e) {
-            $info['dsn'] = $dsn;
-            $info['user'] = $user;
-            $info['$password'] = $password;
-            $this->logger->log(LogLevel::ERROR, 'Cannot connect to database', $info);
+            $this->logger->log(
+                LogLevel::ERROR, $e->getMessage(),
+                [
+                    'dsn' => $dsn,
+                    'user' => $user,
+                    'password' => $password,
+                    'exception' => $e
+                ]
+            );
             echo 'Connect does not work: ' . $e->getMessage();
         };
     }
