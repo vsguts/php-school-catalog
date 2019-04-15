@@ -2,36 +2,31 @@
 
 namespace App\Views;
 
-class TemplateView
+class TemplateView implements ViewInterface
 {
-    const VIEWS_PATH = __DIR__ . '/../../views/';
-    const LAYOUT_NAME = 'layout';
+    protected $template;
 
-    public function __construct($viewName, $params)
+    protected $data = [];
+
+    public function __construct(string $template, array $data = [])
     {
-          $content = $this->getContent($viewName, $params);
-//          $params['content'] = $content; // is it optimal?
-          $this->display($viewName, $params, $content);
+        $this->template = $template;
+        $this->data = $data;
     }
 
-    protected function getContent($viewName, $params)
+    public function render()
     {
-        extract($params);
-        ob_start();
-        require static::VIEWS_PATH . $viewName . '.php';
-        return ob_get_flush();
-    }
+        extract($this->data);
 
-    /**
-     * @param $viewName
-     * @param $params
-     * @param $content
-     */
-    protected function display($viewName, $params, $content)
-    {
-        extract($params);
+        $path = __DIR__ . '/../../views/' . $this->template . '.php';
+        if (!file_exists($path)) {
+            throw new \Exception('View file does not exists');
+        }
+
         ob_start();
-        require static::VIEWS_PATH . static::LAYOUT_NAME . '.php';
-        ob_end_flush();
+        require __DIR__ . '/../../views/' . $this->template . '.php';
+        $content = ob_get_clean();
+
+        require __DIR__ . '/../../views/layout.php';
     }
 }
