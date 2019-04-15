@@ -7,8 +7,6 @@
  */
 namespace App;
 
-require_once 'LoggerInterface.php';
-
 class Logger implements LoggerInterface
 {
     const LOGGER_PATH = __DIR__ . '/../logs/';
