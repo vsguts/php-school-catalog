@@ -14,7 +14,7 @@ class FormController
         $forms = $query->getList("SELECT * FROM forms");
 
         return new TemplateView('form_index', [
-            'title' => 'My awesome page',
+            'title' => 'Forms page',
             'forms' => $forms
         ]);
     }
@@ -28,6 +28,7 @@ class FormController
         );
 
         return new TemplateView('form_view', [
+            'title' => 'Forms view',
             'form' => $form
         ]);
     }
@@ -54,5 +55,15 @@ class FormController
     {
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');
+    }
+
+    public function update($params)
+    {
+
+        pd($params);
+        return new TemplateView('form_update', [
+            'title' => 'Update the form',
+            'form' => $form
+        ]);
     }
 }
