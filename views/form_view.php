@@ -6,5 +6,7 @@
 
     <p><a href="/forms/delete?id=<?= $form['id'] ?>">Delete this form</a></p>
     <p><a href="/forms">Return to forms list</a></p>
+    <p><a href="/forms/update?id=<?= $form['id'] ?>">Update</a></p>
+
 
 </div>
