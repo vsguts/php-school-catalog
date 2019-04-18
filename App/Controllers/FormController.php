@@ -60,10 +60,22 @@ class FormController
     public function update($params)
     {
 
-        pd($params);
+        $query = new Query();
+        $form = $query->getRow(
+            "SELECT * FROM forms WHERE id = ?",
+            [$params['id']]
+        );
+
         return new TemplateView('form_update', [
             'title' => 'Update the form',
             'form' => $form
         ]);
+    }
+
+    public function updateForm($params, $post)
+    {
+        $data = array_merge($params, $post['form']);
+        (new Query)->execute("UPDATE forms SET title = :title, content = :content WHERE id = :id", $data);
+        return new RedirectView('/forms/view?id=' . $data['id']);
     }
 }
