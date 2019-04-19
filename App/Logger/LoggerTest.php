@@ -20,5 +20,4 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $this->logger->log('test');
     }
-
 }
