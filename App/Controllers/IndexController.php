@@ -2,10 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Views\TemplateView;
+
 class IndexController
 {
     public function index()
     {
-        echo 'I am action index';
+        return new TemplateView('homepageView', [
+            'title' => 'Home page!',
+        ]);
     }
 }
