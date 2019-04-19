@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Database\Query;
-use App\Logger;
+use App\Logger\Logger;
 use App\Views\RedirectView;
 use App\Views\TemplateView;
 
@@ -12,9 +12,14 @@ class FormController
     /** @var Query */
     private $query;
 
+    /** @var Logger */
+    private $logger;
+
     public function __construct()
     {
         $this->query = new Query();
+
+        $this->logger = new Logger();
     }
 
     public function index($params = [])
@@ -35,7 +40,7 @@ class FormController
         );
 
         if(empty($form)) {
-            (new Logger())->log(sprintf('File not found. Id: %s', $params['id']), 'ERROR');
+            $this->logger->log(sprintf('File not found. Id: %s', $params['id']), 'ERROR');
         }
 
         return new TemplateView('form_view', [
