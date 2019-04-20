@@ -14,10 +14,13 @@ class Application
      * @var RouterInterface
      */
     protected $router;
+    protected $logger;
+
 
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
+        $this->logger = new Logger();
     }
 
     public function handleRequest(RequestInterface $request)
@@ -42,8 +45,7 @@ class Application
             return new $class;
 
         } catch (\Exception $e) {
-            $log = new Logger();
-            $log->log($e->getMessage());
+            $this->logger->log($e->getMessage());
         }
     }
 
@@ -59,8 +61,7 @@ class Application
             return $action;
 
         } catch (\Exception $e) {
-            $log = new Logger();
-            $log->log($e->getMessage());
+            $this->logger->log($e->getMessage());
         }
     }
 
@@ -83,8 +84,7 @@ class Application
                 throw new \Exception('Unsuported type');
             }
         } catch (\Exception $e) {
-            $log = new Logger();
-            $log->log($e->getMessage());
+            $this->logger->log($e->getMessage());
         }
     }
 }
