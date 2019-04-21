@@ -15,13 +15,12 @@ class JsonView implements ViewInterface
         $this->statusCode = $statusCode;
     }
 
-    public function render()
+
+    public function render(): void
     {
         header('Content-type: application/json');
         header('Status:' . $this->statusCode);
-        echo "<pre>";
-        echo json_encode($this->data);
-        echo "</pre>";
-    }
 
+        echo json_encode($this->data);
+    }
 }
