@@ -5,6 +5,7 @@ namespace App;
 use App\Http\RequestInterface;
 use App\Http\RouteInterface;
 use App\Http\RouterInterface;
+use App\Logger\Logger;
 use App\Views\ViewInterface;
 
 class Application
@@ -13,10 +14,13 @@ class Application
      * @var RouterInterface
      */
     protected $router;
+    protected $logger;
+
 
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
+        $this->logger = new Logger();
     }
 
     public function handleRequest(RequestInterface $request)
@@ -31,24 +35,34 @@ class Application
 
     protected function resolveControllerClass(RouteInterface $route)
     {
-        $class = $route->getClass();
+        try {
+            $class = $route->getClass();
 
-        if (!class_exists($class)) {
-            throw new \Exception('Controller class does not exists');
+            if (!class_exists($class)) {
+                throw new \Exception('Controller class does not exists');
+            }
+
+            return new $class;
+
+        } catch (\Exception $e) {
+            $this->logger->log($e->getMessage());
         }
-
-        return new $class;
     }
 
     protected function resolveControllerAction(RouteInterface $route, $controller)
     {
-        $action = $route->getAction();
+        try {
+            $action = $route->getAction();
 
-        if (!method_exists($controller, $action)) {
-            throw new \Exception('Action does not exists');
+            if (!method_exists($controller, $action)) {
+                throw new \Exception('Action does not exists');
+            }
+
+            return $action;
+
+        } catch (\Exception $e) {
+            $this->logger->log($e->getMessage());
         }
-
-        return $action;
     }
 
     protected function runControllerAction($controller, $action, RequestInterface $request)
@@ -61,12 +75,16 @@ class Application
 
     protected function render($result)
     {
-        if ($result instanceof ViewInterface) {
-            $result->render();
-        } elseif (is_string($result)) {
-            echo $result;
-        } else {
-            throw new \Exception('Unsuported type');
+        try {
+            if ($result instanceof ViewInterface) {
+                $result->render();
+            } elseif (is_string($result)) {
+                echo $result;
+            } else {
+                throw new \Exception('Unsuported type');
+            }
+        } catch (\Exception $e) {
+            $this->logger->log($e->getMessage());
         }
     }
 }
