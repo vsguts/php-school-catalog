@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App;
+namespace Tests\App\Logger;
 
-require 'Logger.php';
+use App\Logger\Logger;
 
 class LoggerTest extends \PHPUnit\Framework\TestCase
 
@@ -16,7 +16,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $this->logger = new Logger();
     }
 
-    public function testLog()
+    public function testLog(): void
     {
         $this->logger->log('test');
     }
