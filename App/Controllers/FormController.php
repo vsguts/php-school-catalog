@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Database\Query;
 use App\Views\RedirectView;
 use App\Views\TemplateView;
+use App\Views\UpdateView;
 
 class FormController
 {
@@ -54,5 +55,33 @@ class FormController
     {
         (new Query)->execute("DELETE FROM forms WHERE id = ?", [$params['id']]);
         return new RedirectView('/forms');
+    }
+
+    public function edit($params)
+    {
+        $query = new Query();
+        $form = $query->getRow(
+            "SELECT * FROM forms WHERE id = ?",
+            [$params['id']]
+        );
+
+        return new TemplateView(
+            'update_view', [
+                'title' =>'Editing',
+                'form' => $form
+        ]);
+    }
+
+    public function update($params, $post)
+    {
+        $query = new Query();
+        $query->execute(
+            "UPDATE forms SET title = :title, content = :content",
+            $post['form']
+        );
+
+        $id = $params['id'];
+
+        return new RedirectView('/forms/view?id=' . $id);
     }
 }

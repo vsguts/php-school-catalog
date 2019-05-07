@@ -18,7 +18,6 @@ class Connection
         $host = $config['host'];
         $port = $config['port'];
         $dsn = "mysql:dbname=$dbName;host=$host;port=$port";
-
         $user = $config['username'];
         $password = $config['password'];
 
