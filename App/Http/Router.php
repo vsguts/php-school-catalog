@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Logger;
+use App\Views\RedirectView;
+
 class Router implements RouterInterface
 {
     protected $routes = [];
@@ -19,7 +22,12 @@ class Router implements RouterInterface
         $path = $request->getPath();
 
         if (!isset($this->routes[$method][$path])) {
-            throw new \Exception('Route not found');
+            Logger::log(
+                "Route not found. Path: {$path}, method: {$method}.",
+                'ERROR'
+            );
+            $redirect = new RedirectView('/forms');
+            $redirect->render();
         }
 
         return $this->routes[$method][$path];
