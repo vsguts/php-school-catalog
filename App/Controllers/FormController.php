@@ -74,9 +74,11 @@ class FormController
 
     public function update($params, $post)
     {
+        $post['form']['id'] = $params['id'];
+
         $query = new Query();
         $query->execute(
-            "UPDATE forms SET title = :title, content = :content",
+            "UPDATE forms SET title = :title, content = :content WHERE id = :id",
             $post['form']
         );
 
