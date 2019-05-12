@@ -34,6 +34,7 @@ class Application
         $class = $route->getClass();
 
         if (!class_exists($class)) {
+            Logger::log('Action does not exist.', 'ERROR');
             throw new \Exception('Controller class does not exists');
         }
 
@@ -45,7 +46,8 @@ class Application
         $action = $route->getAction();
 
         if (!method_exists($controller, $action)) {
-            throw new \Exception('Action does not exists');
+            Logger::log('Action does not exist.', 'ERROR');
+            throw new \Exception('Action does not exist');
         }
 
         return $action;
@@ -66,7 +68,8 @@ class Application
         } elseif (is_string($result)) {
             echo $result;
         } else {
-            throw new \Exception('Unsuported type');
+            Logger::log('Unsupported type of View was provided.', 'ERROR');
+            throw new \Exception('Unsupported type of View was provided');
         }
     }
 }
