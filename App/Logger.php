@@ -25,7 +25,7 @@ final class Logger implements LoggerInterface
 
         $dateForLog = date('Y-m-d G:i:s');
         $dateForName = date('Y_m_d_G');
-        $fileName = '../logs/' . $dateForName . '.log';
+        $fileName = __DIR__ . '/../logs/' . $dateForName . '.log';
         file_put_contents($fileName,
             "[{$dateForLog}] Level: {$level}. Message: {$message} \n",
             FILE_APPEND
