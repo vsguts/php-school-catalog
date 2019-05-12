@@ -1,9 +1,10 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
 use App\Application;
 use App\Http\Request;
 
-require __DIR__ . '/../bootstrap/bootstrap.php';
+//require __DIR__ . '/../bootstrap/bootstrap.php';
 
 $router = require __DIR__ . '/../routes/routes.php';
 
