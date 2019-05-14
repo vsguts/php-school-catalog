@@ -2,6 +2,8 @@
 
 namespace App\Views;
 
+use App\Logger;
+
 class TemplateView implements ViewInterface
 {
     protected $template;
@@ -20,6 +22,7 @@ class TemplateView implements ViewInterface
 
         $path = __DIR__ . '/../../views/' . $this->template . '.php';
         if (!file_exists($path)) {
+            Logger::log('View file does not exist.', 'ERROR');
             throw new \Exception('View file does not exists');
         }
 

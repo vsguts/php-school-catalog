@@ -4,6 +4,7 @@ namespace App\Database;
 
 use PDO;
 use PDOException;
+use App\Logger;
 
 class Connection
 {
@@ -18,14 +19,13 @@ class Connection
         $host = $config['host'];
         $port = $config['port'];
         $dsn = "mysql:dbname=$dbName;host=$host;port=$port";
-
         $user = $config['username'];
         $password = $config['password'];
 
         try {
             $this->db = new PDO($dsn, $user, $password);
         } catch (PDOException $e) {
-            echo 'Connect does not work: ' . $e->getMessage();
+            Logger::log("Connection does not work: {$e->getMessage()}", 'ERROR');
         };
     }
 

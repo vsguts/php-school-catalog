@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Config;
+use App\Logger;
 use PDO;
 
 class Query
@@ -20,6 +21,9 @@ class Query
         }
 
         $this->db = $connection->getConnection();
+        if ($this->db) {
+            Logger::log('Connection established.', 'INFO');
+        }
     }
 
     public function getRow(string $query, array $params = [])
