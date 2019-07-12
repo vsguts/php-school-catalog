@@ -1,0 +1,36 @@
+[2019-05-08 15:49:51] Level: ERROR. Message: Unsupported type of View was provided. 
+[2019-05-08 15:49:58] Level: INFO. Message: Connection established. 
+[2019-05-08 15:49:58] Level: INFO. Message: Form list was displayed. 
+[2019-05-08 15:50:03] Level: ERROR. Message: Route not found. Path: /formsss, method: GET. 
+[2019-05-08 15:50:03] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:03] Level: INFO. Message: Form list was displayed. 
+[2019-05-08 15:50:07] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:07] Level: INFO. Message: Form 20 was displayed. 
+[2019-05-08 15:50:09] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:09] Level: INFO. Message: Form 20 is being edited. 
+[2019-05-08 15:50:15] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:15] Level: INFO. Message: Form 20 was updated. 
+[2019-05-08 15:50:15] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:15] Level: INFO. Message: Form 20 was displayed. 
+[2019-05-08 15:50:18] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:18] Level: INFO. Message: Form list was displayed. 
+[2019-05-08 15:50:20] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:20] Level: INFO. Message: Form 22 was displayed. 
+[2019-05-08 15:50:22] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:22] Level: INFO. Message: Form 22 was deleted. 
+[2019-05-08 15:50:22] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:22] Level: INFO. Message: Form list was displayed. 
+[2019-05-08 15:50:25] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:25] Level: INFO. Message: Form 21 was displayed. 
+[2019-05-08 15:50:30] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:30] Level: INFO. Message: Form not found. Id: 217. 
+[2019-05-08 15:50:33] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:33] Level: INFO. Message: Form list was displayed. 
+[2019-05-08 15:50:35] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:35] Level: INFO. Message: Form 21 was displayed. 
+[2019-05-08 15:50:37] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:37] Level: INFO. Message: Form 21 is being edited. 
+[2019-05-08 15:50:39] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:39] Level: INFO. Message: Form is not found. Id: 218. 
+[2019-05-08 15:50:43] Level: INFO. Message: Connection established. 
+[2019-05-08 15:50:43] Level: INFO. Message: Form list was displayed. 
