@@ -46,5 +46,4 @@ class Query
     {
         return $this->db->lastInsertId();
     }
-
 }

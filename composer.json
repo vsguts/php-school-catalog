@@ -1,0 +1,12 @@
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "App\\Http\\": "App/Http/"
+    }
+  },
+  "require": {
+    "robmorgan/phinx": "^0.10.6",
+    "fzaninotto/faker": "^1.8"
+  }
+}
